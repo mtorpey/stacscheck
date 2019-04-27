@@ -144,7 +144,7 @@ counter=0
 run_single_student() {
     (
         echo "$1"
-        ulimit -t 600 # Put a limit on runtime
+        ulimit -t 6000 # Put a limit on runtime
         studentid=$(basename "$1")
 
         if [ "$USECGROUPS" = true ]; then
