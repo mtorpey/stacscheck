@@ -446,16 +446,24 @@ def try_parse_config_file(basedir):
 
 # Walk directory tree under 'rootdir', finding all directories with 'name'.
 def find_all_directories_with_name(names, rootdir):
+    maindirlist = []
+    srcdirlist = []
     dirlist = []
     for root, subfolders, filenames in os.walk(rootdir):
         if 'main' in CONFIG:
             for filename in filenames:
                 if filename == CONFIG['main']:
-                    dirlist.append(os.path.dirname(os.path.join(root, filename)))
+                    maindirlist.append(os.path.dirname(os.path.join(root, filename)))
         for dirname in subfolders:
             for name in names.split(';'):
                 if dirname == name and ("/__MACOSX" not in os.path.join(root, dirname)) and not dirname.startswith("."):
-                    dirlist.append(os.path.join(root, dirname))
+                    srcdirlist.append(os.path.join(root, dirname))
+        if len(maindirlist) > 0 and len(srcdirlist) > 0:
+            dirlist = set(maindirlist).intersection(srcdirlist)
+        elif len(maindirlist) > 0 and len(srcdirlist) == 0:
+            dirlist = maindirlist
+        else:
+            dirlist = srcdirlist
     return sorted(set(dirlist), key=len, reverse=True)
 
 # Find the directory the code is stored in, using 'srcdir' from CONFIG.
