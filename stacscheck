@@ -500,7 +500,7 @@ def find_code_directory():
 
     if len(recursive_srcdir) == 1 and not in_srcdir:
         reldir = os.path.relpath(recursive_srcdir[0], current_dir)
-        if reldir == CONFIG['srcdir']:
+        if reldir in CONFIG['srcdir'].split(';'):
             info_print("found in current directory")
         else:
             info_print("found at '" + os.path.relpath(recursive_srcdir[0], current_dir) + "'")
