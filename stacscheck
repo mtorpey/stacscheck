@@ -526,7 +526,7 @@ def find_code_directory():
     return guessed
 
 def lookup_practical_root(recursive_srcdir):
-    recursive_srcdir = [srcdir for srcdir in recursive_srcdir if ('ext' not in srcdir.lower() and '/.' not in srcdir.lower())]
+    recursive_srcdir = [srcdir for srcdir in recursive_srcdir if ('ext' not in srcdir.lower() and 'out' not in srcdir.lower() and '/.' not in srcdir.lower())]
     if len(recursive_srcdir) == 0:
         return None
     guessed = recursive_srcdir[0]
