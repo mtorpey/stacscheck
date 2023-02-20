@@ -458,9 +458,7 @@ def find_all_directories_with_name(names, rootdir):
             for name in names.split(';'):
                 if dirname == name and ("/__MACOSX" not in os.path.join(root, dirname)) and not dirname.startswith("."):
                     srcdirlist.append(os.path.join(root, dirname))
-        if len(maindirlist) > 0 and len(srcdirlist) > 0:
-            dirlist = set(maindirlist).intersection(srcdirlist)
-        elif len(maindirlist) > 0 and len(srcdirlist) == 0:
+        if len(maindirlist) > 0:
             dirlist = maindirlist
         else:
             dirlist = srcdirlist
